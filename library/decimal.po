@@ -32,6 +32,8 @@ msgid ""
 "decimal floating-point arithmetic. It offers several advantages over the :"
 "class:`float` datatype:"
 msgstr ""
+":mod:`decimal` 模組提供快速且正確四捨五入的十進位浮點數運算支援。"
+"相較於 :class:`float` 型別，它具有幾項優勢："
 
 #: ../../library/decimal.rst:37
 msgid ""
@@ -41,6 +43,9 @@ msgid ""
 "people learn at school.\" -- excerpt from the decimal arithmetic "
 "specification."
 msgstr ""
+"十進位「基於一種專為人們設計的浮點數模型，其核心指導原則是——"
+"電腦必須提供與人們在學校所學相同的運算方式。」"
+"——摘錄自十進位運算規範。"
 
 #: ../../library/decimal.rst:42
 msgid ""
@@ -49,6 +54,10 @@ msgid ""
 "point. End users typically would not expect ``1.1 + 2.2`` to display as "
 "``3.3000000000000003`` as it does with binary floating point."
 msgstr ""
+"十進位數字可以被精確表示。相比之下，數字如 ``1.1`` 和 ``2.2``"
+"在二進位浮點數中無法被精確表示。"
+"最終使用者通常不會預期 ``1.1 + 2.2`` 會顯示為 ``3.3000000000000003``，"
+"但在二進位浮點數中確實如此。"
 
 #: ../../library/decimal.rst:47
 msgid ""
@@ -59,6 +68,12 @@ msgid ""
 "accumulate. For this reason, decimal is preferred in accounting applications "
 "which have strict equality invariants."
 msgstr ""
+"這種精確性也適用於運算。在十進位浮點數中，"
+"``0.1 + 0.1 + 0.1 - 0.3`` 的結果正好等於零；"
+"但在二進位浮點數中，結果則是 ``5.5511151231257827e-017``。"
+"雖然這個數值接近零，但這樣的差異會影響等式測試的可靠性，"
+"甚至會累積誤差。因此，在具有嚴格相等性不變條件的會計應用中，"
+"十進位運算更受青睞。"
 
 #: ../../library/decimal.rst:54
 msgid ""
@@ -69,6 +84,10 @@ msgid ""
 "multiplicands.  For instance, ``1.3 * 1.2`` gives ``1.56`` while ``1.30 * "
 "1.20`` gives ``1.5600``."
 msgstr ""
+":mod:`decimal` 模組包含有效數字的概念，使得 ``1.30 + 1.20`` 結果為 ``2.50``。"
+"尾隨的零被保留以表示其重要性，這是貨幣應用中的標準表示方式。"
+"在乘法運算中，使用「教科書式」的方法，即保留乘數中的所有數字。"
+"例如，``1.3 * 1.2`` 的結果是 ``1.56``，而 ``1.30 * 1.20`` 則為 ``1.5600``。"
 
 #: ../../library/decimal.rst:61
 msgid ""
@@ -76,6 +95,8 @@ msgid ""
 "alterable precision (defaulting to 28 places) which can be as large as "
 "needed for a given problem:"
 msgstr ""
+"與基於硬體的二進位浮點數不同，:mod:`decimal` 模組允許使用者調整精確度"
+"（預設為 28 位數），並可根據需求擴展到所需的精度："
 
 #: ../../library/decimal.rst:73
 msgid ""
@@ -86,6 +107,10 @@ msgid ""
 "signal handling. This includes an option to enforce exact arithmetic by "
 "using exceptions to block any inexact operations."
 msgstr ""
+"二進位和十進位浮點數皆是根據既定標準實作的。"
+"內建的 `float` 型別僅公開部分功能，而 :mod:`decimal` 模組則提供完整的標準功能。"
+"在需要時，程式設計師可以完全掌控進位處理和訊號處理，"
+"包括透過異常機制強制執行精確運算，阻擋所有不精確的操作。"
 
 #: ../../library/decimal.rst:80
 msgid ""
@@ -94,60 +119,16 @@ msgid ""
 "rounded floating-point arithmetic.\"  -- excerpt from the decimal arithmetic "
 "specification."
 msgstr ""
+":mod:`decimal` 模組的設計宗旨是「公平支援精確且不進位的十進位運算"
+"（有時稱為固定點運算）以及進位浮點數運算。」"
+"——摘錄自十進位運算規範。"
 
 #: ../../library/decimal.rst:85
 msgid ""
 "The module design is centered around three concepts:  the decimal number, "
 "the context for arithmetic, and signals."
 msgstr ""
-
-#: ../../library/decimal.rst:88
-msgid ""
-"A decimal number is immutable.  It has a sign, coefficient digits, and an "
-"exponent.  To preserve significance, the coefficient digits do not truncate "
-"trailing zeros.  Decimals also include special values such as ``Infinity``, "
-"``-Infinity``, and ``NaN``.  The standard also differentiates ``-0`` from "
-"``+0``."
-msgstr ""
-
-#: ../../library/decimal.rst:94
-msgid ""
-"The context for arithmetic is an environment specifying precision, rounding "
-"rules, limits on exponents, flags indicating the results of operations, and "
-"trap enablers which determine whether signals are treated as exceptions.  "
-"Rounding options include :const:`ROUND_CEILING`, :const:`ROUND_DOWN`, :const:"
-"`ROUND_FLOOR`, :const:`ROUND_HALF_DOWN`, :const:`ROUND_HALF_EVEN`, :const:"
-"`ROUND_HALF_UP`, :const:`ROUND_UP`, and :const:`ROUND_05UP`."
-msgstr ""
-
-#: ../../library/decimal.rst:101
-msgid ""
-"Signals are groups of exceptional conditions arising during the course of "
-"computation.  Depending on the needs of the application, signals may be "
-"ignored, considered as informational, or treated as exceptions. The signals "
-"in the decimal module are: :const:`Clamped`, :const:`InvalidOperation`, :"
-"const:`DivisionByZero`, :const:`Inexact`, :const:`Rounded`, :const:"
-"`Subnormal`, :const:`Overflow`, :const:`Underflow` and :const:"
-"`FloatOperation`."
-msgstr ""
-
-#: ../../library/decimal.rst:108
-msgid ""
-"For each signal there is a flag and a trap enabler.  When a signal is "
-"encountered, its flag is set to one, then, if the trap enabler is set to "
-"one, an exception is raised.  Flags are sticky, so the user needs to reset "
-"them before monitoring a calculation."
-msgstr ""
-
-#: ../../library/decimal.rst:116
-msgid ""
-"IBM's General Decimal Arithmetic Specification, `The General Decimal "
-"Arithmetic Specification <https://speleotrove.com/decimal/decarith.html>`_."
-msgstr ""
-
-#: ../../library/decimal.rst:125
-msgid "Quick-start Tutorial"
-msgstr ""
+"此模組的設計圍繞三個核心概念：十進位數、運算情境和訊號。"
 
 #: ../../library/decimal.rst:127
 msgid ""
@@ -155,6 +136,8 @@ msgid ""
 "current context with :func:`getcontext` and, if necessary, setting new "
 "values for precision, rounding, or enabled traps::"
 msgstr ""
+"使用十進位數的基本步驟是先引入模組，使用 :func:`getcontext` 檢視當前運算情境，"
+"並在需要時設定新的精確度、進位方式或啟用陷阱機制：::"
 
 #: ../../library/decimal.rst:131
 msgid ""
