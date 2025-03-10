@@ -30,7 +30,8 @@ msgstr "**原始碼：** :source:`Lib/random.py`"
 
 #: ../../library/random.rst:11
 msgid ""
-"This module implements pseudo-random number generators for various distributions."
+"This module implements pseudo-random number generators for various "
+"distributions."
 msgstr "此模組實現了多種分佈的偽隨機數產生器。"
 
 #: ../../library/random.rst:14
